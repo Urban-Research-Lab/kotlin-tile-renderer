@@ -39,6 +39,10 @@ png rasters, that can be served by your web server controllers.
 
 ## Installation
 
+Library resides in jcenter repository. Use this line in case you use gradle:
+```
+implementation 'ru.itmo.idu:kotlin-tile-renderer:1.0.0
+```
 ## Usage
 
 The main entry point for the library is the TileRenderer class. It takes providers for geometries and styles

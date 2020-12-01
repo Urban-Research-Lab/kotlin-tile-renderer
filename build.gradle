@@ -22,9 +22,7 @@ repositories {
     maven {
         url = "https://repo.osgeo.org/repository/release/"
     }
-    maven {
-        url = "https://dl.bintray.com/esmirnov/urban-research-lab-oss/"
-    }
+    jcenter()
     mavenCentral()
 }
 
@@ -39,10 +37,25 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier "sources"
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            artifact sourcesJar
+            groupId 'ru.itmo.idu'
+            artifactId 'kotlin-tile-renderer'
+            version '1.0.0'
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('name', 'kotlin-tile-renderer')
+                root.appendNode('url', 'https://github.com/Urban-Research-Lab/kotlin-tile-renderer')
+                root.appendNode('description', 'Library for rendering XYZ raster tiles from JTS Geometry objects')
+            }
         }
     }
 }
