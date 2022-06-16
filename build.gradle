@@ -32,7 +32,7 @@ plugins {
 apply plugin: "com.jfrog.artifactory"
 
 group 'ru.itmo.idu'
-version '1.0.0'
+version '1.1.0'
 
 repositories {
     maven {
@@ -65,7 +65,7 @@ publishing {
             artifact sourcesJar
             groupId 'ru.itmo.idu'
             artifactId 'kotlin-tile-renderer'
-            version '1.0.0'
+            version '1.1.0'
             pom.withXml {
                 def root = asNode()
                 root.appendNode('name', 'kotlin-tile-renderer')

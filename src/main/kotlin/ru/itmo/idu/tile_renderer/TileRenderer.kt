@@ -132,7 +132,7 @@ data class BasicGeometryObject(override val geometry: Geometry): GeometryObject 
  * envelope and geometries will be cropped by that rectangle before rendering. If your style involves some very thick lines or complex shapes along paths, make sure
  * this padding is large enough to hide new borders of cropped geometry from tile
  */
-class TileRenderer<E: GeometryObject, K>(private val objectProvider: ObjectProvider<E, K>,
+open class TileRenderer<E: GeometryObject, K>(private val objectProvider: ObjectProvider<E, K>,
                                          private val objectStyler: ObjectStyler<E>,
                                          private val enableCache: Boolean,
                                          private val cropGeometries: Boolean,
@@ -155,7 +155,7 @@ class TileRenderer<E: GeometryObject, K>(private val objectProvider: ObjectProvi
 
     private val emptyGeom = geometryFactory.createGeometryCollection()
 
-    private fun doRenderObjects(image: BufferedImage, mapEnvelope: Geometry, objects: List<E>, zoom: Int) {
+    protected open fun doRenderObjects(image: BufferedImage, mapEnvelope: Geometry, objects: List<E>, zoom: Int) {
 
         val projectedEnvelope = ProjectionUtils.transformToMercator(mapEnvelope).envelopeInternal
         val shapeWriter = ShapeWriter(PointTransformation { src: Coordinate, dest: Point2D ->
