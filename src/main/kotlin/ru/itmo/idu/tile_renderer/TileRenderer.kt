@@ -143,17 +143,17 @@ open class TileRenderer<E: GeometryObject, K>(private val objectProvider: Object
                 objectStyler: ObjectStyler<E>,
                 enableCache: Boolean) : this(objectProvider, objectStyler, enableCache, false, 0.0)
 
-    private val TILE_SIZE = 256
+    protected val TILE_SIZE = 256
 
-    private val tileCache = CacheBuilder.newBuilder().softValues().build<String, ByteArray>()
+    protected val tileCache = CacheBuilder.newBuilder().softValues().build<String, ByteArray>()
 
-    private val tileEnvelope = Envelope(0.0, TILE_SIZE.toDouble(), 0.0, TILE_SIZE.toDouble())
+    protected val tileEnvelope = Envelope(0.0, TILE_SIZE.toDouble(), 0.0, TILE_SIZE.toDouble())
 
-    private val defaultBorderStroke = BasicStroke(2.0f)
+    protected val defaultBorderStroke = BasicStroke(2.0f)
 
-    private val geometryFactory = GeometryFactory()
+    protected val geometryFactory = GeometryFactory()
 
-    private val emptyGeom = geometryFactory.createGeometryCollection()
+    protected val emptyGeom = geometryFactory.createGeometryCollection()
 
     protected open fun doRenderObjects(image: BufferedImage, mapEnvelope: Geometry, objects: List<E>, zoom: Int) {
 
@@ -293,11 +293,11 @@ open class TileRenderer<E: GeometryObject, K>(private val objectProvider: Object
             return bos.toByteArray()
         }
 
-        private fun getXCoord(envelope: Envelope, objectEnvelope: Envelope, x: Double): Int {
+        fun getXCoord(envelope: Envelope, objectEnvelope: Envelope, x: Double): Int {
             return ((((x - objectEnvelope.minX) / objectEnvelope.width * (envelope.width)))).toInt()
         }
 
-        private fun getYCoord(envelope: Envelope, objectEnvelope: Envelope, y: Double): Int {
+        fun getYCoord(envelope: Envelope, objectEnvelope: Envelope, y: Double): Int {
             return (envelope.height - ((y - objectEnvelope.minY) / objectEnvelope.height * (envelope.height))).toInt()
         }
 
