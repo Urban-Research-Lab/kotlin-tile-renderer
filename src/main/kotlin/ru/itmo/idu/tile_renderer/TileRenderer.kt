@@ -226,6 +226,11 @@ open class TileRenderer<E: GeometryObject, K>(private val objectProvider: Object
         }
     }
 
+    fun clearCache() {
+        log.info("Clearing cache")
+        this.tileCache.invalidateAll()
+    }
+
     fun getTileImpl(tileKey: String, zoom: Int, x: Int, y: Int, extraKey: K): ByteArray {
         log.debug("Generating tile ", tileKey)
         val start = System.currentTimeMillis()
